@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class role_user_mapping extends Model {
+  class role_user_mappings extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of DataTypes lifecycle.
@@ -13,22 +13,34 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  role_user_mapping.init({
+  role_user_mappings.init({
     id: {
-      allowNull: false,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      allowNull: false,
     },
     role_id: {
-      type: DataTypes.UUID
+      type: DataTypes.UUID,
+      allowNull: false
     },
     user_id: {
-      type: DataTypes.UUID
+      type: DataTypes.UUID,
+      allowNull: false
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: false,
     },
   }, {
     sequelize,
-    modelName: 'role_user_mapping',
+    modelName: 'role_user_mappings',
   });
-  return role_user_mapping;
+  return role_user_mappings;
 };

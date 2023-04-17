@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class roles extends Model {
+  class role_permission_mappings extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of DataTypes lifecycle.
@@ -11,23 +11,21 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  roles.init(
+  role_permission_mappings.init(
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
+        allowNull: false
+      },
+      permission_id: {
+        type: DataTypes.UUID,
         allowNull: false,
       },
-      name: {
-        type: DataTypes.STRING,
-      },
-      description: {
-        type: DataTypes.STRING,
-      },
-      is_active: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false
+      role_id: {
+        type: DataTypes.UUID,
+        allowNull: false,
       },
       createdAt: {
         type: DataTypes.DATE,
@@ -39,17 +37,11 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.NOW,
         allowNull: false,
       },
-      createdBy: {
-        type: DataTypes.UUID,
-      },
-      updatedBy: {
-        type: DataTypes.UUID,
-      },
     },
     {
       sequelize,
-      modelName: "roles",
+      modelName: "role_permission_mappings",
     }
   );
-  return roles;
+  return role_permission_mappings;
 };

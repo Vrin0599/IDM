@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class permission extends Model {
     /**
@@ -13,44 +11,46 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  permission.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
+  permission.init(
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+      },
+      data: {
+        type: DataTypes.JSONB,
+      },
+      repo_id: {
+        type: DataTypes.UUID,
+      },
+      is_active: {
+        type: DataTypes.BOOLEAN,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
+      createdBy: {
+        allowNull: false,
+        type: DataTypes.UUID,
+      },
+      updatedBy: {
+        allowNull: false,
+        type: DataTypes.UUID,
+      },
     },
-    name: {
-      type: DataTypes.STRING
-    },
-    data: {
-      type: DataTypes.JSONB
-   },
-    repo_id:{
-      type: DataTypes.UUID
-    },
-    is_active: {
-      type: DataTypes.BOOLEAN
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    createdBy: {
-      allowNull: false,
-      type: DataTypes.UUID  
-    },
-    updatedBy: {
-      allowNull: false,
-      type: DataTypes.UUID
+    {
+      sequelize,
+      modelName: "permission",
     }
-   }, {
-    sequelize,
-    modelName: 'permission',
-  });
+  );
   return permission;
 };

@@ -1,4 +1,4 @@
-const { roles, role_permission_mapping } = require("../../models");
+const { roles, role_permission_mappings } = require("../../models");
 
 const getRolesController = () => {
   return new Promise(async (resolve, reject) => {
@@ -17,9 +17,7 @@ const createRolesController = ({ name, description, permissions }) => {
       let payload = {
         name,
         description,
-        updatedAt: new Date(),
         updatedBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
-        createdAt: new Date(),
         createdBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
         is_active: false,
       };
@@ -32,9 +30,10 @@ const createRolesController = ({ name, description, permissions }) => {
           role_id: role_data.id,
         };
       });
-      await role_permission_mapping.bulkCreate(role_mapping_data);
+      await role_permission_mappings.bulkCreate(role_mapping_data);
       resolve(role_data);
     } catch (err) {
+      console.log(err);
       reject(err);
     }
   });

@@ -16,10 +16,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Users.init({
     id: {
-      allowNull: false,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      allowNull: false,
     },
     username: {
       type: DataTypes.STRING
@@ -31,15 +31,18 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     is_active: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     },
     createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       allowNull: false,
-      type: DataTypes.DATE
     },
     updatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
       allowNull: false,
-      type: DataTypes.DATE
     },
     createdBy: {
       allowNull: false,
