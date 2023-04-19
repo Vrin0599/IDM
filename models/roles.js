@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      roles.hasMany(models.role_user_mappings, {
+        sourceKey: "id",
+        foreignKey: "role_id",
+      });
     }
   }
   roles.init(
@@ -27,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       is_active: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false
+        defaultValue: false,
       },
       createdAt: {
         type: DataTypes.DATE,

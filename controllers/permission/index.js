@@ -21,8 +21,8 @@ const createPermissionController = ({ name, data, repo_id, is_active }) => {
         is_active,
         createdAt: new Date(),
         updatedAt: new Date(),
-        createdBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
-        updatedBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
+        // createdBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
+        // updatedBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
       });
       resolve(query);
     } catch (err) {

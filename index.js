@@ -2,11 +2,11 @@ require("dotenv").config();
 
 const express = require("express");
 
- const routes = require("./routes");
+const routes = require("./routes");
 
 const PORT = process.env.PORT;
 
-const DB = require("./models/index")
+const DB = require("./models/index");
 
 const app = express();
 

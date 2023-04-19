@@ -9,6 +9,7 @@ const routers = require("express").Router();
 
 routers.get("/", async (req, res) => {
   try {
+    console.log(req.user)
     const response = await getPermissionController();
     res.send({ data: response });
   } catch (err) {
@@ -18,7 +19,7 @@ routers.get("/", async (req, res) => {
 
 routers.post("/create", async (req, res) => {
   try {
-    const response = await createPermissionController(req.body);
+    const response = await createPermissionController({...req.body,...req.user});
     res.send({ data: response });
   } catch (err) {
     res.send(err);
@@ -42,4 +43,5 @@ routers.post("/delete", async (req, res) => {
     res.send(err);
   }
 });
+
 module.exports = routers;
