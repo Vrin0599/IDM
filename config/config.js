@@ -3,12 +3,12 @@ dotenv.config();
 
 module.exports = {
   development: {
-    username: "postgres",
-    password: "12345",
-    database: "IDM_v1",
-    host: "localhost",
-    dialect: "postgres",
-    FRAMEWORK_SHELL_URL: "http://dev-framework-api.crayond.com/api/v1",
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_USERNAME,
+    dialect: process.env.DB_DIALECT,
+    FRAMEWORK_SHELL_URL: process.env.FRAMEWORK_SHELL_URL,
   },
   test: {
     username: "root",
