@@ -1,7 +1,4 @@
-const {
-    getUsersController,
-    createUsersController
-  } = require("../../controllers/users");
+import { getUsersController, createUsersController } from "../../controllers/users";
   
   const routers = require("express").Router();
   
@@ -23,4 +20,4 @@ const {
     }
   });
 
-  module.exports = routers;
+  export default routers;

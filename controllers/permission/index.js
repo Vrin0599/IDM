@@ -1,9 +1,14 @@
-const { permission } = require("../../models");
+import { permission } from "../../models";
 
-const getPermissionController = () => {
+export const getPermissionController = ({userDetails}) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const query = await permission.findAll();
+      console.log(userDetails)
+      const query = await permission.findAll({
+        where: {
+          user_id: userDetails.user_profile_id,
+        },
+      });
       resolve(query);
     } catch (err) {
       reject(err);
@@ -11,7 +16,12 @@ const getPermissionController = () => {
   });
 };
 
-const createPermissionController = ({ name, data, repo_id, is_active }) => {
+export const createPermissionController = ({
+  name,
+  data,
+  repo_id,
+  is_active,
+}) => {
   return new Promise(async (resolve, reject) => {
     try {
       const query = await permission.create({
@@ -31,7 +41,7 @@ const createPermissionController = ({ name, data, repo_id, is_active }) => {
   });
 };
 
-const updatePermissionController = ({ permission_id, data }) => {
+export const updatePermissionController = ({ permission_id, data }) => {
   return new Promise(async (resolve, reject) => {
     try {
       const query = await permission.update(
@@ -44,7 +54,7 @@ const updatePermissionController = ({ permission_id, data }) => {
           where: {
             id: permission_id,
           },
-          returning: true //to fetch data along with updated values
+          returning: true, //to fetch data along with updated values
         }
       );
       resolve(query);
@@ -54,7 +64,7 @@ const updatePermissionController = ({ permission_id, data }) => {
   });
 };
 
-const deletePermissionController = ({ permission_id }) => {
+export const deletePermissionController = ({ permission_id }) => {
   return new Promise(async (resolve, reject) => {
     try {
       const query = await permission.update(
@@ -67,7 +77,7 @@ const deletePermissionController = ({ permission_id }) => {
           where: {
             id: permission_id,
           },
-          returning: true //to fetch data along with updated values
+          returning: true, //to fetch data along with updated values
         }
       );
       resolve(query);
@@ -75,11 +85,4 @@ const deletePermissionController = ({ permission_id }) => {
       reject(err);
     }
   });
-};
-
-module.exports = {
-  getPermissionController,
-  createPermissionController,
-  updatePermissionController,
-  deletePermissionController,
 };

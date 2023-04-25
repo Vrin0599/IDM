@@ -1,6 +1,6 @@
-const { roles, role_permission_mappings } = require("../../models");
+import { roles, role_permission_mappings } from "../../models";
 
-const getRolesController = () => {
+export const getRolesController = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const query = await roles.findAll();
@@ -11,14 +11,19 @@ const getRolesController = () => {
   });
 };
 
-const createRolesController = ({ name, description, permissions }) => {
+export const createRolesController = ({
+  name,
+  description,
+  permissions,
+  userDetails,
+}) => {
   return new Promise(async (resolve, reject) => {
     try {
       let payload = {
         name,
         description,
-        updatedBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
-        createdBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
+        updatedBy: userDetails.user_profile_id,
+        createdBy: userDetails.user_profile_id,
         is_active: false,
       };
       let role_data = await roles.create(payload);
@@ -39,7 +44,7 @@ const createRolesController = ({ name, description, permissions }) => {
   });
 };
 
-const updateRolesController = ({ roles_id, name, description }) => {
+export const updateRolesController = ({ roles_id, name, description }) => {
   return new Promise(async (resolve, reject) => {
     try {
       const query = await roles.update(
@@ -63,7 +68,7 @@ const updateRolesController = ({ roles_id, name, description }) => {
   });
 };
 
-const deleteRolesController = ({ roles_id }) => {
+export const deleteRolesController = ({ roles_id }) => {
   return new Promise(async (resolve, reject) => {
     try {
       const query = await roles.destroy({
@@ -77,11 +82,4 @@ const deleteRolesController = ({ roles_id }) => {
       reject(err);
     }
   });
-};
-
-module.exports = {
-  getRolesController,
-  createRolesController,
-  updateRolesController,
-  deleteRolesController,
 };

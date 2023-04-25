@@ -18,7 +18,10 @@ routers.get("/", async (req, res) => {
 
 routers.post("/create", async (req, res) => {
   try {
-    const response = await createRolesController(req.body);
+    const response = await createRolesController({
+      ...req.body,
+      ...req.headers,
+    });
     res.send({ data: response });
   } catch (err) {
     res.send(err);

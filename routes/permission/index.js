@@ -1,16 +1,15 @@
-const {
+import {
   getPermissionController,
   createPermissionController,
   updatePermissionController,
   deletePermissionController,
-} = require("../../controllers/permission");
+} from "../../controllers/permission";
 
 const routers = require("express").Router();
 
 routers.get("/", async (req, res) => {
   try {
-    console.log(req.user)
-    const response = await getPermissionController();
+    const response = await getPermissionController(req.headers);
     res.send({ data: response });
   } catch (err) {
     res.send(err);
@@ -19,7 +18,10 @@ routers.get("/", async (req, res) => {
 
 routers.post("/create", async (req, res) => {
   try {
-    const response = await createPermissionController({...req.body,...req.user});
+    const response = await createPermissionController({
+      ...req.body,
+      ...req.user,
+    });
     res.send({ data: response });
   } catch (err) {
     res.send(err);
@@ -44,4 +46,4 @@ routers.post("/delete", async (req, res) => {
   }
 });
 
-module.exports = routers;
+export default routers;

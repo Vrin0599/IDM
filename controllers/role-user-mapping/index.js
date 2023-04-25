@@ -1,7 +1,7 @@
-const { Op } = require("sequelize");
-const { role_user_mappings, roles, Users } = require("../../models");
+import { Op } from "sequelize";
+import { role_user_mappings, roles, Users } from "../../models";
 
-const getRoleMappingController = ({ user_id, role_id }) => {
+export const getRoleMappingController = ({ user_id, role_id }) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await role_user_mappings.findAll({
@@ -37,4 +37,3 @@ const getRoleMappingController = ({ user_id, role_id }) => {
   });
 };
 
-module.exports = { getRoleMappingController };

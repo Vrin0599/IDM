@@ -30,6 +30,9 @@ module.exports = (sequelize, DataTypes) => {
       is_active: {
         type: DataTypes.BOOLEAN,
       },
+      user_id: {
+        type: DataTypes.UUID,
+      },
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
