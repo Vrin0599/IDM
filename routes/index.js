@@ -1,14 +1,18 @@
-const routers = require("express").Router();
+import { Router } from "express";
 import auth from "../middleware/authentication";
 
 import permissionRouter from "./permission";
 import roleRouter from "./roles";
 import userRouter from "./users";
 import roleUserMappingRouter from "./role-user-mapping";
+import repositoryRouter from "./repository";
 
-routers.use("/permission", auth, permissionRouter);
-routers.use("/role", auth, roleRouter);
-routers.use("/users", auth, userRouter);
-routers.use("/role_user_mappings", auth, roleUserMappingRouter);
+const router = Router();
 
-export default routers;
+router.use("/permission", auth, permissionRouter);
+router.use("/role", auth, roleRouter);
+router.use("/users", auth, userRouter);
+router.use("/role_user_mappings", auth, roleUserMappingRouter);
+router.use("/repository", auth, repositoryRouter);
+
+export default router;

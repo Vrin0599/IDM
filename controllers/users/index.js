@@ -1,6 +1,6 @@
-const { Users } = require("../../models");
+import { Users } from "../../models";
 
-const getUsersController = () => {
+export const getUsersController = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const query = await Users.findAll();
@@ -11,11 +11,12 @@ const getUsersController = () => {
   });
 };
 
-const createUsersController = ({
+export const createUsersController = ({
   username,
   contact_number,
   email,
   is_active,
+  userDetails,
 }) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -24,17 +25,13 @@ const createUsersController = ({
         contact_number,
         email,
         is_active,
-        createdBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
-        updatedBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
+        createdBy: userDetails.user_profile_id,
+        updatedBy: userDetails.user_profile_id,
       });
       resolve(query);
     } catch (err) {
+      console.log(err);
       reject(err);
     }
   });
-};
-
-module.exports = {
-  getUsersController,
-  createUsersController,
 };

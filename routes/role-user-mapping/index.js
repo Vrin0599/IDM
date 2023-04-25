@@ -1,16 +1,18 @@
-const {
-    getRoleMappingController
-  } = require("../../controllers/role-user-mapping");
-  
-  const routers = require("express").Router();
-  
-  routers.post("/", async (req, res) => {
-    try {
-      const response = await getRoleMappingController(req.body);
-      res.send({ data: response });
-    } catch (err) {
-      res.send(err);
-    }
-  });
-  
-  module.exports = routers;
+import express from "express";
+import { getRoleMappingController } from "../../controllers/role-user-mapping";
+
+const routers = express.Router();
+
+routers.post("/", async (req, res, next) => {
+  try {
+    const response = await getRoleMappingController({...req.body, ...req.headers});
+    res.send({ data: response });
+  } catch (err) {
+    next({
+      code: 500,
+      message: err,
+    });
+  }
+});
+
+export default routers;

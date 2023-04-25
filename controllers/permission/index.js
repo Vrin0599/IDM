@@ -1,9 +1,9 @@
 import { permission } from "../../models";
 
-export const getPermissionController = ({userDetails}) => {
+export const getPermissionController = ({ userDetails }) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(userDetails)
+      console.log(userDetails);
       const query = await permission.findAll({
         where: {
           user_id: userDetails.user_profile_id,
@@ -31,8 +31,8 @@ export const createPermissionController = ({
         is_active,
         createdAt: new Date(),
         updatedAt: new Date(),
-        // createdBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
-        // updatedBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
+        createdBy: userDetails.user_profile_id,
+        updatedBy: userDetails.user_profile_id,
       });
       resolve(query);
     } catch (err) {
@@ -41,14 +41,18 @@ export const createPermissionController = ({
   });
 };
 
-export const updatePermissionController = ({ permission_id, data }) => {
+export const updatePermissionController = ({
+  permission_id,
+  data,
+  userDetails,
+}) => {
   return new Promise(async (resolve, reject) => {
     try {
       const query = await permission.update(
         {
           data,
           updatedAt: new Date(),
-          updatedBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
+          updatedBy: userDetails.user_profile_id,
         },
         {
           where: {
@@ -71,7 +75,7 @@ export const deletePermissionController = ({ permission_id }) => {
         {
           is_active: false,
           updatedAt: new Date(),
-          updatedBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
+          updatedBy: userDetails.user_profile_id,
         },
         {
           where: {

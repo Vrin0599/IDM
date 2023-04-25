@@ -1,3 +1,4 @@
+import express from "express";
 import {
   getPermissionController,
   createPermissionController,
@@ -5,18 +6,21 @@ import {
   deletePermissionController,
 } from "../../controllers/permission";
 
-const routers = require("express").Router();
+const routers = express.Router();
 
-routers.get("/", async (req, res) => {
+routers.get("/", async (req, res, next) => {
   try {
     const response = await getPermissionController(req.headers);
     res.send({ data: response });
   } catch (err) {
-    res.send(err);
+    next({
+      code: 500,
+      message: err,
+    });
   }
 });
 
-routers.post("/create", async (req, res) => {
+routers.post("/create", async (req, res, next) => {
   try {
     const response = await createPermissionController({
       ...req.body,
@@ -24,25 +28,34 @@ routers.post("/create", async (req, res) => {
     });
     res.send({ data: response });
   } catch (err) {
-    res.send(err);
+    next({
+      code: 500,
+      message: err,
+    });
   }
 });
 
-routers.post("/update", async (req, res) => {
+routers.post("/update", async (req, res, next) => {
   try {
     const response = await updatePermissionController(req.body);
     res.send({ data: response });
   } catch (err) {
-    res.send(err);
+    next({
+      code: 500,
+      message: err,
+    });
   }
 });
 
-routers.post("/delete", async (req, res) => {
+routers.post("/delete", async (req, res, next) => {
   try {
     const response = await deletePermissionController(req.body);
     res.send({ data: response });
   } catch (err) {
-    res.send(err);
+    next({
+      code: 500,
+      message: err,
+    });
   }
 });
 

@@ -44,7 +44,12 @@ export const createRolesController = ({
   });
 };
 
-export const updateRolesController = ({ roles_id, name, description }) => {
+export const updateRolesController = ({
+  roles_id,
+  name,
+  description,
+  userDetails,
+}) => {
   return new Promise(async (resolve, reject) => {
     try {
       const query = await roles.update(
@@ -52,7 +57,7 @@ export const updateRolesController = ({ roles_id, name, description }) => {
           name,
           description,
           updatedAt: new Date(),
-          updatedBy: "70f51a6a-58e0-4656-bfce-8412331a06ba",
+          updatedBy: userDetails.user_profile_id,
         },
         {
           where: {

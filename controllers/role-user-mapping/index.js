@@ -1,7 +1,7 @@
 import { Op } from "sequelize";
 import { role_user_mappings, roles, Users } from "../../models";
 
-export const getRoleMappingController = ({ user_id, role_id }) => {
+export const getRoleMappingController = ({ role_id, userDetails }) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await role_user_mappings.findAll({
@@ -9,7 +9,13 @@ export const getRoleMappingController = ({ user_id, role_id }) => {
         include: [
           {
             model: Users,
-            attributes: ["id", "username", "contact_number", "email", "is_active"],
+            attributes: [
+              "id",
+              "username",
+              "contact_number",
+              "email",
+              "is_active",
+            ],
             required: false,
           },
           {
@@ -21,7 +27,7 @@ export const getRoleMappingController = ({ user_id, role_id }) => {
         where: {
           [Op.and]: [
             {
-              user_id: { [Op.eq]: user_id },
+              user_id: { [Op.eq]: userDetails.user_profile_id },
             },
             {
               role_id: { [Op.eq]: role_id },
@@ -36,4 +42,3 @@ export const getRoleMappingController = ({ user_id, role_id }) => {
     }
   });
 };
-
