@@ -1,16 +1,5 @@
 import { roles, role_permission_mappings } from "../../models";
 
-export const getRolesController = () => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const query = await roles.findAll();
-      resolve(query);
-    } catch (err) {
-      reject(err);
-    }
-  });
-};
-
 export const createRolesController = ({
   name,
   description,
@@ -39,6 +28,20 @@ export const createRolesController = ({
       resolve(role_data);
     } catch (err) {
       console.log(err);
+      reject(err);
+    }
+  });
+};
+
+export const getRolesController = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const query = await roles.findAll({
+        offset: 0,
+        limit: 10,
+      });
+      resolve(query);
+    } catch (err) {
       reject(err);
     }
   });

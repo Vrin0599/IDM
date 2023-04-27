@@ -1,16 +1,5 @@
 import { Users } from "../../models";
 
-export const getUsersController = () => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const query = await Users.findAll();
-      resolve(query);
-    } catch (err) {
-      reject(err);
-    }
-  });
-};
-
 export const createUsersController = ({
   username,
   contact_number,
@@ -31,6 +20,20 @@ export const createUsersController = ({
       resolve(query);
     } catch (err) {
       console.log(err);
+      reject(err);
+    }
+  });
+};
+
+export const getUsersController = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const query = await Users.findAll({
+        offset: 0,
+        limit: 10,
+      });
+      resolve(query);
+    } catch (err) {
       reject(err);
     }
   });

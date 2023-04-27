@@ -1,21 +1,5 @@
 import { permission } from "../../models";
 
-export const getPermissionController = ({ userDetails }) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      console.log(userDetails);
-      const query = await permission.findAll({
-        where: {
-          user_id: userDetails.user_profile_id,
-        },
-      });
-      resolve(query);
-    } catch (err) {
-      reject(err);
-    }
-  });
-};
-
 export const createPermissionController = ({
   name,
   data,
@@ -33,6 +17,23 @@ export const createPermissionController = ({
         updatedAt: new Date(),
         createdBy: userDetails.user_profile_id,
         updatedBy: userDetails.user_profile_id,
+      });
+      resolve(query);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+export const getPermissionController = ({ userDetails }) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const query = await permission.findAll({
+        offset: 0,
+        limit: 10,
+        where: {
+          user_id: userDetails.user_profile_id,
+        },
       });
       resolve(query);
     } catch (err) {

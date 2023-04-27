@@ -5,6 +5,8 @@ export const getRoleMappingController = ({ role_id, userDetails }) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await role_user_mappings.findAll({
+        offset: 0,
+        limit: 10,
         attributes: [],
         include: [
           {

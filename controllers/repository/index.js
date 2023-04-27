@@ -20,7 +20,10 @@ export const createRepoController = ({ data, is_active, userDetails }) => {
 export const getRepoController = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const query = await repository.findAll();
+      const query = await repository.findAll({
+        offset: 0,
+        limit: 10,
+      });
       resolve(query);
     } catch (err) {
       reject(err);
